@@ -1,2 +1,0 @@
-# SocialMediaWebApp
-Java EE project
