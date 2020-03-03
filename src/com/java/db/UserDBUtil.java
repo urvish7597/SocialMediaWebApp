@@ -62,7 +62,7 @@ public class UserDBUtil {
 		Connection conn = null;
 		Statement stm = null;
 		ResultSet res = null;
-		User founduser= new User();
+		User founduser = null;
 		try {
 			conn = this.dataSource.getConnection();
 			String sql = String.format("SELECT * FROM user WHERE Email=?");
@@ -70,10 +70,7 @@ public class UserDBUtil {
 			pstmt.setString(1, objuser.getEmail());
 			res = pstmt.executeQuery();
 			while(res.next()){
-				founduser.setFirstName(res.getString("FirstName"));
-				founduser.setLastName(res.getString("LastName"));
-				founduser.setPassword(res.getString("Password"));
-				founduser.setEmail(res.getString("Email"));
+				founduser = new User(res.getString("FirstName"),res.getString("LastName"),res.getString("Email"),res.getString("Password"));
             }
 		}
 		catch(Exception e) {

@@ -41,11 +41,8 @@ public class Register extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		try {
-			User newuser = new User();
-			newuser.setFirstName(request.getParameter("fname"));
-			newuser.setLastName(request.getParameter("lname"));
-			newuser.setEmail(request.getParameter("email"));
-			newuser.setPassword(request.getParameter("password"));
+			User newuser = new User(request.getParameter("fname"),request.getParameter("lname"),request.getParameter("email"),request.getParameter("password"));
+
 			if(newuser.Register(userdb))
 			{
 				session.setAttribute("user",newuser);

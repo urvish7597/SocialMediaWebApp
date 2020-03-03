@@ -17,7 +17,7 @@ public class Post {
 	
 	public String getUser_id()
 	{
-		return post_id;
+		return user_id;
 	}
 	public void setUser_id(String user_id)
 	{
@@ -25,13 +25,26 @@ public class Post {
 	}
 	public String getText()
 	{
-		return post_id;
+		return text;
 	}
 	public void setText(String text)
 	{
 		this.text = text;
 	}
-
-
+	public String getDate()
+	{
+		return date;
+	}
+	public void setDate(String date)
+	{
+		this.date = date;
+	}
+	public Post(String post_id, String user_id, String text, String date) {
+		super();
+		this.post_id = post_id;
+		this.user_id = user_id;
+		this.text = text;
+		this.date = date;
+	}
 
 }

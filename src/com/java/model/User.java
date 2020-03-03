@@ -35,9 +35,22 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<String> friends = new ArrayList<String>();
-	public List<String> posts = new ArrayList<String>();
-	public List<String> messages = new ArrayList<String>();
+	public List<User> friends = new ArrayList<User>();
+	public List<Post> posts = new ArrayList<Post>();
+	//public List<String> messages = new ArrayList<String>();
+	
+	
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+	public User(String firstName, String lastName, String email, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+	}
+	
 	
 	public boolean Register(UserDBUtil db) {
 		boolean registrationStatus =false;
@@ -59,11 +72,12 @@ public class User {
 			e.printStackTrace();
 		}
 		if(founduser != null) {
-			if(this.getPassword() == founduser.getPassword()) {
+			if(this.getPassword().equals(founduser.getPassword())) {
 				this.firstName = founduser.getFirstName();
 				this.lastName = founduser.getLastName();
 				this.password = founduser.getPassword();
 				this.email = founduser.getPassword();
+				return true;
 			}
 			else {
 				return false;
