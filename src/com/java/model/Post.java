@@ -1,10 +1,16 @@
 package com.java.model;
 
-public class Post {
+import com.mysql.fabric.xmlrpc.base.Array;
+
+public class Post<String> {
 	private String post_id;
 	private String user_id;
 	private String text;
 	private String date;
+	private String addPost;
+	private String deletePost;
+	private String readAllPosts;
+	private String savePost;
 	
 	public String getPost_id()
 	{
@@ -37,6 +43,27 @@ public class Post {
 	}
 	public void setDate(String date)
 	{
+<<<<<<< HEAD
+		this.date=date;
+	}
+	public void addPost()
+	{
+		
+	}
+	public void deletePost()
+	{
+		
+	}
+	public void savePost()
+	{
+		
+	}
+	public List<String> posts = new ArrayList<String>();
+	
+	
+
+
+=======
 		this.date = date;
 	}
 	public Post(String post_id, String user_id, String text, String date) {
@@ -46,5 +73,6 @@ public class Post {
 		this.text = text;
 		this.date = date;
 	}
+>>>>>>> ecd49fa36f7a79ceef7311874c82def9963da446
 
 }
