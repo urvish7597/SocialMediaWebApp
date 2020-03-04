@@ -3,6 +3,7 @@
     
     
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="tag" %>
+     <%@ page import="com.java.model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,12 +15,15 @@
 <form action="Home" method="post">
 
 <div class="header">
-<h1>WELCOME "USER"</h1>
+<% 
+User currentUser = (User)session.getAttribute("user") ;
+%>
+<h1>Welcome <%=currentUser.getFirstName()+" "+currentUser.getLastName() %></h1>
 </div>
 <br>
     <div style="float:right">
-    <a style= "margin-right:10px" href="url">Profile</a>
-    <a href="url">Logout</a>
+    <a style= "margin-right:10px" href="Profile">Profile</a>
+    <a href="Logout">Logout</a>
     </div>
     <br>
     <br>
