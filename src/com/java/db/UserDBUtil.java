@@ -65,13 +65,15 @@ public class UserDBUtil {
 		User founduser = null;
 		try {
 			conn = this.dataSource.getConnection();
+			System.out.println(objuser.getEmail());
 			String sql = String.format("SELECT * FROM user WHERE Email=?");
 			PreparedStatement pstmt = conn.prepareStatement(sql); 
+			
 			pstmt.setString(1, objuser.getEmail());
 			res = pstmt.executeQuery();
-			while(res.next()){
-				founduser = new User(res.getString("FirstName"),res.getString("LastName"),res.getString("Email"),res.getString("Password"));
-            }
+			res.next();
+			founduser = new User(res.getString("FirstName"),res.getString("LastName"),res.getString("Email"),res.getString("Password"));
+            
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -79,7 +81,7 @@ public class UserDBUtil {
 		finally {
 			close(conn,stm,res);
 		}
-		
+		System.out.println(founduser.getEmail());
 		return founduser;
 	}
 

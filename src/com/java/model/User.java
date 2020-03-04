@@ -66,12 +66,17 @@ public class User {
 	public boolean Login(UserDBUtil db) {
 		User founduser = null;
 		try {
+			System.out.println(this.getEmail());
 			founduser = db.findUser(this);
+			System.out.println(founduser.getPassword());
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(founduser != null) {
+			System.out.println(founduser.getPassword());
+			System.out.println(this.getPassword());
 			if(this.getPassword().equals(founduser.getPassword())) {
 				this.firstName = founduser.getFirstName();
 				this.lastName = founduser.getLastName();
