@@ -53,7 +53,6 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("in Home");
 		 HttpSession session=request.getSession();  
 		User logeduser =(User)(session.getAttribute("user"));
 		try {
