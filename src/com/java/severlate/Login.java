@@ -52,14 +52,12 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println(request.getParameter("email"));
 		HttpSession session = request.getSession();
 		User tempUser = new User(request.getParameter("email"),request.getParameter("password"));
-		System.out.println(tempUser.getEmail());
+
 		if(tempUser.Login(userdb)) {
 			System.out.println("login succeed");
 			session.setAttribute("user",tempUser);
-			System.out.println("To home");
 			response.sendRedirect("Home");
 			
 		}
