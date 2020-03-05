@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="../CSS/style.css">
+<link rel="stylesheet" href="CSS/style.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -27,17 +27,17 @@
    
     <tag:forEach var="post" items="${posts}">
     
-    <div style="width:210px; height:210px ;border-width:2px ;border-style:solid">
-		<div>
+    <div class="profile" style="width:210px; height:210px ;border-width:2px ;border-style:solid">
+		<div class="top">
 			<label for="name">${post.getUser_id()} <br></label>
 			<label for="date" style="margin-left:50px">${post.getDate()} <br></label>
 		</div>
 		<br>
-		<div>
+		<div class="middle">
 			 <textarea class="form-control" rows="8" id="comment">${post.getText()} </textarea>
 		</div>
 		<br>
-		<div>
+		<div class="bottom">
 			<label style= "margin-right:50px"><a href="url" >Like</a></label>
 			<label><a href="url">Save</a></label>
 		</div>

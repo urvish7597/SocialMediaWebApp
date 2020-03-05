@@ -1,6 +1,88 @@
 *{
 	margin:0px;
+    box-sizing: border-box;
 }
 .header{
+	text-align:center;
 	align-items:center;
 }
+.profile{
+	
+	
+}
+body{
+	background-color:floralwhite;
+}
+
+.searchbar{
+	text-align:center;
+	height:50%;
+	width:100%;
+	
+}
+.wearables{
+	text-align:center;
+	height:50%
+	width:100%
+}
+.buttons{
+	justify-content:space-between;
+	text-align:center;
+	height:50%;
+	width:100%;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 0;
+  top: 2;
+  /*overflow-x: hidden;*/
+  padding-top: 20px;
+}
+
+
+.left {
+  left: 0;
+  height:100%;
+  width:50%;
+  background-color: skyblue;
+}
+
+
+.right {
+  right: 0;
+  height:100%;
+  width:60%;
+  background-color: lightpink;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.grid-container {
+  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;
+  width:80%;
+}
+
+.grid-item{
+  flex: 30%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  width:20%;
+  padding: 10px;
+  font-size: 10px;
+  text-align: center;
+}
+  
+
