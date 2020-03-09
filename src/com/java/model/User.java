@@ -1,42 +1,61 @@
 package com.java.model;
 
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
+import com.java.db.PostDBUtil;
 import com.java.db.UserDBUtil;
 
 public class User {
 	
 	private String firstName;
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 	public void setFirstName(String fname) {
 		firstName = fname;
 	}
 	private String lastName;
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 	public void setLastName(String lname) {
 		lastName = lname;
 	}
 	private String email;
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	private String password;
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<User> friends = new ArrayList<User>();
-	public List<Post> posts = new ArrayList<Post>();
+	private List<User> friends = new ArrayList<User>();
+	
+	public List<User> getFriends() {
+		return this.friends;
+	}
+	public void setFriends(List<User> friends) {
+		this.friends = friends;
+	}
+	
+	private List<Post> posts = new ArrayList<Post>();
+	
+	public List<Post> getPosts() {
+		return this.posts;
+	}
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	
 	//public List<String> messages = new ArrayList<String>();
 	
 	
@@ -85,6 +104,23 @@ public class User {
 			}
 		}
 		return false;
+	}
+	public void CreatePost(String text,PostDBUtil postDB) {
+		 Date date = new Date();
+		 Timestamp t = new Timestamp(date.getTime());
+	     long timeMilli = date.getTime();
+	     
+	     Post newPost = new Post(Long.toString(timeMilli),this.getEmail(),text,t.toString());
+	     postDB.createPost(newPost);
+		
+	}
+	public void SavePost(String postId,String text,PostDBUtil postDB) {
+		 try {
+			postDB.savePost(postId,text);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="CSS/style.css">
+<link rel="stylesheet" href="../CSS/style.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -31,17 +31,17 @@ User currentUser = (User)session.getAttribute("user") ;
    
     <tag:forEach var="post" items="${posts}">
     
-    <div class="profile" style="width:210px; height:210px ;border-width:2px ;border-style:solid">
-		<div class="top">
+    <div style="width:210px; height:210px ;border-width:2px ;border-style:solid">
+		<div>
 			<label for="name">${post.getUser_id()} <br></label>
 			<label for="date" style="margin-left:50px">${post.getDate()} <br></label>
 		</div>
 		<br>
-		<div class="middle">
+		<div>
 			 <textarea class="form-control" rows="8" id="comment">${post.getText()} </textarea>
 		</div>
 		<br>
-		<div class="bottom">
+		<div>
 			<label style= "margin-right:50px"><a href="url" >Like</a></label>
 			<label><a href="url">Save</a></label>
 		</div>

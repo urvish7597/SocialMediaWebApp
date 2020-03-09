@@ -103,7 +103,7 @@ public class UserDBUtil {
 			pstmt.setString(2, objuser.getEmail());
 			res = pstmt.executeQuery();
 			while(res.next()) {
-				System.out.println(res.getString("friend"));
+				//System.out.println(res.getString("friend"));
 			friends.add(findUser(new User(res.getString("friend"),"")));
 			}
 			
