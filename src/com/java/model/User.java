@@ -122,5 +122,7 @@ public class User {
 			e.printStackTrace();
 		}
 	}
-
+	public void DeletePost(String postId,PostDBUtil postDB) {
+		postDB.deletePost(postId);
+	}
 }

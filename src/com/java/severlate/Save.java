@@ -1,6 +1,8 @@
 package com.java.severlate;
 
 import java.io.IOException;
+
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +28,7 @@ public class Save extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    @Resource(name="jdbc/java_project")
     private DataSource dataSource;
     private PostDBUtil postdb;
     @Override
@@ -39,7 +42,6 @@ public class Save extends HttpServlet {
 			throw new ServletException(ex);
 		}
 	}
-
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

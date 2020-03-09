@@ -132,4 +132,26 @@ private DataSource dataSource;
 		}
 	}
 
+	public void deletePost(String postId) {
+		
+		Connection conn = null;
+		Statement stm = null;
+		ResultSet res = null;
+		try {
+			conn = this.dataSource.getConnection();
+			String sql = String.format("DELETE FROM posts WHERE postID=?");
+			PreparedStatement pstmt = conn.prepareStatement(sql); 
+			pstmt.setString(1, postId);
+			//System.out.println(pstmt.toString());
+			pstmt.executeUpdate();
+		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(conn,stm,res);
+		}
+	}
+
 }
