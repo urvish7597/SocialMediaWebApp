@@ -7,7 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="CSS/style.css">
 <script type="text/javascript">
     function makeEditable(editbtn){
 
@@ -55,13 +55,13 @@
 							<button name="save" value="${post.getPost_id()}">Save</button>
 						</form>
 		
-							<div>
-								<label style= "display:inline-block;margin-right:10px"><a href="url" >Like</a></label>
+							<div class="buttons" style="position:relative;left:38px;bottom:19px;">
 								<button style= "display:inline-block" onclick="makeEditable(this)">Edit</button>
 					
 								<form style= "display:inline-block" action="Delete" method="post">
 									<button name="delete" value="${post.getPost_id()}">Delete</button>
 								</form>
+								<label style= "display:inline-block;margin-right:10px"><a href="url" >Like</a></label>	
 							</div>
 						</div>
         		    </tag:forEach>
