@@ -19,16 +19,16 @@ import com.java.model.Post;
 import com.java.model.User;
 
 /**
- * Servlet implementation class Profile
+ * Servlet implementation class ViewProfile
  */
-@WebServlet("/Profile")
-public class Profile extends HttpServlet {
+@WebServlet("/ViewProfile")
+public class ViewProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Profile() {
+    public ViewProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,6 +49,7 @@ public class Profile extends HttpServlet {
 		}
 	}
 
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -57,25 +58,30 @@ public class Profile extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		User currentUser = (User) session.getAttribute("user");
+		User friend = new User(request.getParameter("friendemail"),"");
 		try {
-			List<Post> posts = postdb.readUserPost(currentUser);
-			List<User> friends = userdb.readUserFriends(currentUser);
-			List<User> friendRequest = userdb.getNewFriendRequest(currentUser);
-			int friendRequestCount = friendRequest.size();
-			currentUser.setFriends(friends);
-			currentUser.setPosts(posts);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Profile.jsp");
-			request.setAttribute("loggedUser", currentUser);
-			request.setAttribute("friendRequest", friendRequest);
-			request.setAttribute("friendRequestCount", friendRequestCount);
+			List<Post> posts = postdb.readUserPost(friend);
+			List<User> friends = userdb.readUserFriends(friend);
+			friend.setFriends(friends);
+			friend.setPosts(posts);
+			String isFriend = "Add Friend";
+			for(User user :friends) {
+				if((user.getEmail()).equals(currentUser.getEmail())) {
+					isFriend = "";
+					break;
+				}
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("viewProfile.jsp");
+			request.setAttribute("isFriend", isFriend);
+			request.setAttribute("loggedUser", friend);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		}
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -55,7 +55,6 @@ public class User {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
-	
 	//public List<String> messages = new ArrayList<String>();
 	
 	
@@ -110,7 +109,7 @@ public class User {
 		 Timestamp t = new Timestamp(date.getTime());
 	     long timeMilli = date.getTime();
 	     
-	     Post newPost = new Post(Long.toString(timeMilli),this.getEmail(),text,t.toString());
+	     Post newPost = new Post(Long.toString(timeMilli),this.getEmail(),text,t.toString(),0);
 	     postDB.createPost(newPost);
 		
 	}
@@ -124,5 +123,15 @@ public class User {
 	}
 	public void DeletePost(String postId,PostDBUtil postDB) {
 		postDB.deletePost(postId);
+	}
+	
+	public void doLike(String post_id,PostDBUtil db) {
+			System.out.println(post_id+"-like");
+			db.like(post_id,this.email);
+
+	}
+	public void makeFriend(String friendEmail,String userEmail,UserDBUtil userdb) {
+		
+		userdb.makeFriend(friendEmail,userEmail);
 	}
 }

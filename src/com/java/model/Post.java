@@ -8,6 +8,7 @@ public class Post {
 	private String user_id;
 	private String text;
 	private String date;
+	private int like;
 	
 	public String getPost_id()
 	{
@@ -56,12 +57,19 @@ public class Post {
 	}
 	public List<String> posts = new ArrayList<String>();
 	
-	public Post(String post_id, String user_id, String text, String date) {
+	public Post(String post_id, String user_id, String text, String date,int like) {
 		super();
 		this.post_id = post_id;
 		this.user_id = user_id;
 		this.text = text;
 		this.date = date;
+		this.like = like;
+	}
+	public int getLike() {
+		return like;
+	}
+	public void setLike(int like) {
+		this.like = like;
 	}
 
 }

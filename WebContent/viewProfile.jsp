@@ -8,32 +8,17 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="CSS/style.css">
-<script type="text/javascript">
-    function makeEditable(editbtn){
-
-
-    	editbtn.parentElement.parentElement.querySelector(".form-control").disabled = false;
-        
-    }
-</script>
 </head>
 <body>
 	<div>
 		<div class="userInfo" style="text-align:center">${loggedUser.getFirstName()} ${loggedUser.getLastName()}<br>${loggedUser.getEmail()}</div>
 		<div style="text-align:center">
-			<form action="DoPost" method="post">
-				<textarea rows="5" cols="10" name="Posttext" placeholder="write post text here" style="width:300px"></textarea>
-				<input type="submit" value="submit">
-			</form>
-			<div>
-				<a href="ViewFriendRequest">Friend Request<span style=" height: 25px;width: 25px;background-color: #bbb; border-radius: 50%;display: inline-block;">${friendRequestCount}</span></a>
-			</div>
-			
+			<a href="Makefriend?friendemail=${loggedUser.getEmail()}">${isFriend}</a>
 			<a style="float:right" href="Home">Home</a>
 		</div>
 		<div style="width: 100%; display: table;">
     		<div style="display: table-row">
-        		<div class="friends" style="width: 300px;hight:250px; overflow: scroll;;position:absolute;left:10px;top:10px; display: table-cell;"> 
+        		<div class="friends" style="width: 300px; display: table-cell;"> 
         			<tag:forEach var="friend" items="${loggedUser.getFriends()}">
         			
         				<div style="border:1px solid black">
@@ -61,11 +46,6 @@
 						</form>
 		
 							<div class="buttons" style="position:relative;left:38px;bottom:19px;">
-								<button style= "display:inline-block" onclick="makeEditable(this)">Edit</button>
-					
-								<form style= "display:inline-block" action="Delete" method="post">
-									<button name="delete" value="${post.getPost_id()}">Delete</button>
-								</form>
 								<label style= "display:inline-block;margin-right:10px"><a href="Like?post_id=${post.getPost_id()}&&page=Profile" >Like</a>${post.getLike()}</label>	
 							</div>
 						</div>

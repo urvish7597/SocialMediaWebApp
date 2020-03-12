@@ -44,12 +44,12 @@ private DataSource dataSource;
 		List<Post> foundPosts = new ArrayList<Post>();
 		try {
 			conn = this.dataSource.getConnection();
-			String sql = String.format("SELECT * FROM posts");
+			String sql = String.format("SELECT p.postID,p.email,content,date ,l.counter FROM posts p,(select postID,count(postID) as counter from likes GROUP BY postID) l Where p.postID = l.postID order by date");
 			PreparedStatement pstmt = conn.prepareStatement(sql); 
 			//pstmt.setString(1, objuser.getEmail());
 			res = pstmt.executeQuery();
 			while(res.next()){
-				foundPosts.add(new Post(res.getString("postID"),res.getString("email"),res.getString("content"),res.getString("date")));	
+				foundPosts.add(new Post(res.getString("postID"),res.getString("email"),res.getString("content"),res.getString("date"),Integer.parseInt((res.getString("counter")))));	
             }
 		}
 		catch(Exception e) {
@@ -68,12 +68,19 @@ private DataSource dataSource;
 		List<Post> foundPosts = new ArrayList<Post>();
 		try {
 			conn = this.dataSource.getConnection();
-			String sql = String.format("SELECT * FROM posts WHERE email=?");
+			String sql = String.format("SELECT p.postID,p.email,content,date ,l.counter FROM posts p left join(select postID,count(postID) as counter from likes GROUP BY postID) l on p.postID = l.postID where p.email= ? order by date");
 			PreparedStatement pstmt = conn.prepareStatement(sql); 
 			pstmt.setString(1, objuser.getEmail());
 			res = pstmt.executeQuery();
 			while(res.next()){
-				foundPosts.add(new Post(res.getString("postID"),res.getString("email"),res.getString("content"),res.getString("date")));	
+				String s= res.getString("counter");
+				int t=0;
+				if(s!="" && s!=null)
+				{
+					t = Integer.parseInt(s);
+				}
+				
+				foundPosts.add(new Post(res.getString("postID"),res.getString("email"),res.getString("content"),res.getString("date"),t));	
             }
 			
 			/*System.out.println(objuser.getEmail());
@@ -153,5 +160,95 @@ private DataSource dataSource;
 			close(conn,stm,res);
 		}
 	}
+	
+	public void like(String post_id,String email) {
+		if(!isPostLiked(post_id,email)) {
+			doLike(post_id,email);
+		}
+		else {
+			 doUnlike(post_id,email);
+		}
+	}
+	
+public void doLike(String post_id,String email) {
+		
+	Connection conn = null;
+	Statement stm = null;
+	ResultSet res = null;
+	try {
+		conn = this.dataSource.getConnection();
+		String sql = String.format("INSERT INTO likes VALUES('%s','%s')",post_id,email);
+		PreparedStatement pstmt = conn.prepareStatement(sql); 
+		//pstmt.setString(1, postId);
+		//System.out.println(pstmt.toString());
+		pstmt.executeUpdate();
+	
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
+	finally {
+		close(conn,stm,res);
+	}
+	}
+private boolean isPostLiked(String post_id,String email)
+{
+	
+	Connection conn = null;
+	Statement stm = null;
+	ResultSet res = null;
+	String s="";
+	try {
+		conn = this.dataSource.getConnection();
+		String sql = String.format("SELECT postID from likes WHERE postID=? and email=?");
+		PreparedStatement pstmt = conn.prepareStatement(sql); 
+		pstmt.setString(1, post_id);
+		pstmt.setString(2, email);
+		res=pstmt.executeQuery();
+		while(res.next())
+		{
+			s=res.getString("postID");
+		}
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
+	finally {
+		close(conn,stm,res);
+	}
+	System.out.println("res=:"+s);
+	if(s=="" ) {
+		System.out.println("like");
+		return false;
+	}
+	else {
+		System.out.println("unlike");
+		return true;
+	}
+}
+public void doUnlike(String post_id ,String email) {
+	
+	Connection conn = null;
+	Statement stm = null;
+	ResultSet res = null;
+	try {
+		conn = this.dataSource.getConnection();
+		String sql = String.format("DELETE FROM likes WHERE postID=? and email=?");
+		PreparedStatement pstmt = conn.prepareStatement(sql); 
+		pstmt.setString(1, post_id);
+		pstmt.setString(2, email);
+		//System.out.println(pstmt.toString());
+		pstmt.executeUpdate();
+	
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
+	finally {
+		close(conn,stm,res);
+	}
+}
+	
+	
 
 }

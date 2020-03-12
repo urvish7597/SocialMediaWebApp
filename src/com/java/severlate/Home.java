@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.java.db.PostDBUtil;
+import com.java.db.UserDBUtil;
 import com.java.model.Post;
 import com.java.model.User;
 
@@ -34,12 +35,14 @@ public class Home extends HttpServlet {
     @Resource(name="jdbc/java_project")
     private DataSource dataSource;
     private PostDBUtil postdb;
+    private UserDBUtil userdb;
     @Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
 		try {
 			postdb = new PostDBUtil(dataSource);
+			userdb = new UserDBUtil(dataSource);
 		}
 		catch(Exception ex) {
 			throw new ServletException(ex);
@@ -57,8 +60,10 @@ public class Home extends HttpServlet {
 		User logeduser =(User)(session.getAttribute("user"));
 		try {
 			List<Post> posts = postdb.readAllPost(logeduser);	
+			List<User> friends = userdb.readAllFriends(logeduser);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Home.jsp");
 			request.setAttribute("posts", posts);
+			request.setAttribute("friends", friends);
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
