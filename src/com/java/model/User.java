@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.java.db.MessageDBUtil;
 import com.java.db.PostDBUtil;
 import com.java.db.UserDBUtil;
 
@@ -55,9 +57,15 @@ public class User {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
-	//public List<String> messages = new ArrayList<String>();
+	public List<Message> messages = new ArrayList<Message>();
 	
 	
+	public List<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
 	public User(String email, String password) {
 		this.email = email;
 		this.password = password;
@@ -133,5 +141,9 @@ public class User {
 	public void makeFriend(String friendEmail,String userEmail,UserDBUtil userdb) {
 		
 		userdb.makeFriend(friendEmail,userEmail);
+	}
+	public void getUserMessages(User friend ,MessageDBUtil db)
+	{
+		db.getUserMessages(this,friend);
 	}
 }

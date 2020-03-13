@@ -38,8 +38,8 @@
         			
         				<div style="border:1px solid black">
      						<a><label for="name">${friend.getFirstName()} ${friend.getLastName()}</label></a>
-        					<a href="#">message</a>
-        					<a href="#">unfriend</a>
+        					<a href="Message?friend=${friend.getEmail()}">message</a>
+        					<a href="Unfriend?friend=${friend.getEmail()}">unfriend</a>
         				</div>
          		    
          		    </tag:forEach>
