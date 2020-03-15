@@ -1,8 +1,6 @@
 package com.java.severlate;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -15,21 +13,20 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.java.db.MessageDBUtil;
-import com.java.db.PostDBUtil;
 import com.java.db.UserDBUtil;
 import com.java.model.User;
 
 /**
- * Servlet implementation class Message
+ * Servlet implementation class SendMessage
  */
-@WebServlet("/Message")
-public class Message extends HttpServlet {
+@WebServlet("/SendMessage")
+public class SendMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Message() {
+    public SendMessage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -50,35 +47,20 @@ public class Message extends HttpServlet {
 		}
 	}
 
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		 try {
-			 HttpSession session=request.getSession();  
-			 User logeduser =(User)(session.getAttribute("user"));
-			User friend =userdb.findUser( new User(request.getParameter("friend"),""));
-			System.out.println(friend.getFirstName());
-			logeduser.setMessages(new ArrayList<com.java.model.Message>());
-			logeduser.getUserMessages(friend, messagedb);
-			for(com.java.model.Message m:logeduser.messages) {
-				System.out.println(m.getMessage());
-			}
-			
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Message.jsp");
-			request.setAttribute("messages", logeduser.getMessages());
-			request.setAttribute("user", logeduser.getEmail());
-			request.setAttribute("friend", friend.getEmail());
+		///response.getWriter().append("Served at: ").append(request.getContextPath());
+		 HttpSession session=request.getSession();  
+		 User logeduser =(User)(session.getAttribute("user"));
+		 String toUser = request.getParameter("friend");
+		 System.out.println(toUser+"To user");
+		 logeduser.sendMessage(logeduser.getEmail(), toUser,request.getParameter("message") , messagedb);
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("Message");
+			request.setAttribute("friend", toUser);
 			dispatcher.forward(request, response);
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**

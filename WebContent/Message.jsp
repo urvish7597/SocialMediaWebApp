@@ -111,27 +111,16 @@
                             </div>
                         </li>
                         <%} %>
-                       <%--  <li>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        --%>
                     </ul>
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                    <form action="SendMessage" method="post">
+                        <input id="btn-input" type="text" name="message" class="form-control input-sm" placeholder="Type your message here..." />
                         <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat">Send</button>
+                            <button name="friend" value="<%=request.getAttribute("friend")%>" class="btn btn-warning btn-sm" id="btn-chat">Send</button>
                         </span>
+                    </form>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -55,6 +57,27 @@ private DataSource dataSource;
 				//System.out.println(res.getString("friend"));
 			currentUser.messages.add(new Message(res.getString("fromUser"),res.getString("toUser"),res.getString("message"),res.getString("date"),0));
 			}
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(conn,stm,res);
+		}
+	}
+
+	public void sendMessage(String fromUser, String toUser, String message) {
+		Connection conn = null;
+		Statement stm = null;
+		ResultSet res = null;
+		try {
+			Date date = new Date();
+			 Timestamp t = new Timestamp(date.getTime());
+			conn = this.dataSource.getConnection();
+			String sql = String.format("INSERT INTO message  VALUES ('%s', '%s', '%s','%s','%s')",fromUser.trim(),toUser.trim(),message,t,0);
+            PreparedStatement pstmt = conn.prepareStatement(sql); 
+			pstmt.executeUpdate();
 			
 		}
 		catch(Exception e) {

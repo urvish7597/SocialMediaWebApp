@@ -146,4 +146,8 @@ public class User {
 	{
 		db.getUserMessages(this,friend);
 	}
+	public void sendMessage(String fromUser,String toUser,String message,MessageDBUtil db)
+	{
+			db.sendMessage(fromUser,toUser,message);
+	}
 }
