@@ -9,7 +9,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="CSS/style.css">
-<title>Insert title here</title>
+<title>Home</title>
 <script>
 function myFunction() {
     var input, filter, ul, li, a, i, txtValue;
