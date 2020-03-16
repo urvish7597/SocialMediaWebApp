@@ -253,4 +253,29 @@ public class UserDBUtil {
 		
 	}
 
+
+	public void Unfriend(String Friendemail, String Useremail) {
+
+		Connection conn = null;
+		Statement stm = null;
+		ResultSet res = null;
+		try {
+			conn = this.dataSource.getConnection();
+			String sql = String.format("DELETE FROM friends WHERE status = 1 and RelatedUserEmail=? and RelatingUserEmail=? ");
+			PreparedStatement pstmt = conn.prepareStatement(sql); 
+			pstmt.setString(1, Friendemail);
+			pstmt.setString(2, Useremail);
+			//System.out.println(pstmt.toString());
+			pstmt.executeUpdate();
+			
+		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(conn,stm,res);
+		}
+	}
+
 }
