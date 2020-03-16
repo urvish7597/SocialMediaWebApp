@@ -12,31 +12,32 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.java.db.PostDBUtil;
+import com.java.db.UserDBUtil;
 import com.java.model.User;
 
 /**
- * Servlet implementation class Save
+ * Servlet implementation class SavePost
  */
-@WebServlet("/Save")
-public class Save extends HttpServlet {
+@WebServlet("/SavePost")
+public class SavePost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Save() {
+    public SavePost() {
         super();
         // TODO Auto-generated constructor stub
     }
     @Resource(name="jdbc/java_project")
     private DataSource dataSource;
-    private PostDBUtil postdb;
+    private UserDBUtil userdb;
     @Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
 		try {
-			postdb = new PostDBUtil(dataSource);
+			userdb = new UserDBUtil(dataSource);
 		}
 		catch(Exception ex) {
 			throw new ServletException(ex);
@@ -51,8 +52,9 @@ public class Save extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session=request.getSession();
 	    User loggeduser =(User)(session.getAttribute("user"));
-	    loggeduser.SavePost(request.getParameter("save"), request.getParameter("text"), postdb);
-	    response.sendRedirect("Profile");
+	    
+	    loggeduser.savePost(request.getParameter("post_id"), userdb);
+	    response.sendRedirect("Home");
 	}
 
 	/**

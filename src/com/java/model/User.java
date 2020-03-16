@@ -150,4 +150,8 @@ public class User {
 	{
 			db.sendMessage(fromUser,toUser,message);
 	}
+	public void savePost(String postId,UserDBUtil db)
+	{
+		db.savePost(this,postId);
+	}
 }

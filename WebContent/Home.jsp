@@ -76,7 +76,7 @@ User currentUser = (User)session.getAttribute("user") ;
 		<br>
 		<div>
 			<label style= "margin-right:50px"><a href="Like?post_id=${post.getPost_id()}&&page=Home" >Like</a> ${post.getLike()}</label>
-			<label><a href="url">Save</a></label>
+			<label><a href="SavePost?post_id=${post.getPost_id()}">Save</a></label>
 		</div>
 	</div>
    

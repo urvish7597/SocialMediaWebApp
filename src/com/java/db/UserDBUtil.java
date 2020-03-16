@@ -233,4 +233,24 @@ public class UserDBUtil {
 		
 	}
 
+
+	public void savePost(User user, String postId) {
+		Connection conn = null;
+		Statement stm = null;
+		ResultSet res = null;
+		try {
+			conn = this.dataSource.getConnection();
+			String sql = String.format("INSERT INTO savedposts VALUES('%s','%s')",postId,user.getEmail());
+			stm = conn.createStatement();
+			stm.executeUpdate(sql);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(conn,stm,res);
+		}
+		
+	}
+
 }

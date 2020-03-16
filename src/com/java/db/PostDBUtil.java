@@ -216,13 +216,11 @@ private boolean isPostLiked(String post_id,String email)
 	finally {
 		close(conn,stm,res);
 	}
-	System.out.println("res=:"+s);
+
 	if(s=="" ) {
-		System.out.println("like");
 		return false;
 	}
 	else {
-		System.out.println("unlike");
 		return true;
 	}
 }
@@ -247,6 +245,31 @@ public void doUnlike(String post_id ,String email) {
 	finally {
 		close(conn,stm,res);
 	}
+}
+
+public List<Post> readSavedPost(User logeduser) {
+	Connection conn = null;
+	Statement stm = null;
+	ResultSet res = null;
+	List<Post> foundPosts = new ArrayList<Post>();
+	try {
+		conn = this.dataSource.getConnection();
+		String sql = String.format("SELECT postID,email,content,date FROM posts where postID in(select postID from savedposts where email=?)");
+		PreparedStatement pstmt = conn.prepareStatement(sql); 
+		pstmt.setString(1, logeduser.getEmail());
+		res = pstmt.executeQuery();
+		while(res.next()){
+			foundPosts.add(new Post(res.getString("postID"),res.getString("email"),res.getString("content"),res.getString("date"),0));	
+        }
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
+	finally {
+		close(conn,stm,res);
+	}
+	
+	return foundPosts;
 }
 	
 	

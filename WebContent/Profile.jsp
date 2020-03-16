@@ -30,6 +30,7 @@
 			</div>
 			
 			<a style="float:right" href="Home">Home</a>
+			<a href="ViewSavedPost">My Saved Posts</a>
 		</div>
 		<div style="width: 100%; display: table;">
     		<div style="display: table-row">
