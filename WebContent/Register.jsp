@@ -7,6 +7,9 @@
 <title>Insert title hello</title>
 </head>
 <body>
+<div style="text-align:center">
+ <a href="Login.jsp">Login</a>
+</div>
 	<form action="Register" method="post">
 		<label>First Name :<input type="text" name="fname" placeholder="first name"></label><br>
 		<label>Last Name :<input type="text" name="lname" placeholder="last name"></label><br>

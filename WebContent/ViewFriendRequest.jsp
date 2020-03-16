@@ -9,24 +9,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div style="text-align:center">
+<div style="text-align:right">
 <a href="Profile">Go to Profile</a>
 </div>
-			   <div class="grid-container" style="width:100%;border:1px solid black;">
-  					<tag:forEach var="post" items="${posts}">
-  							<div style="width:350px;float:left;margin-right:2px ;height:240px ;border-width:2px ;border-style:solid">
-								<div>
-									<label for="name">${post.getUser_id()} <br></label>
-									<label for="date" style="margin-left:50px">${post.getDate()} <br></label>
-								</div>
-							<br>
-							<div>
-								 <textarea name="text" class="form-control" rows="8" id="comment" disabled=true >${post.getText()} </textarea>
-							</div>
-		
-						</div>
-        		    </tag:forEach>
-        		</div>
+<div style="text-align:center">
+	<table>
+	<tr>
+	<th colspan=2>Friend Requests</th>
+	</tr>
+	<tag:forEach var="friend" items="${friendRequest}">
+		<tr>
+			<td>${friend.getFirstName()}${friend.getLastName()}</td>
+			<td><a href="AcceptRequest?email=${friend.getEmail()}">Accept Request</a></td>
+		</tr>
+	</tag:forEach>
+	</table>
+</div>
 
 </body>
 </html>

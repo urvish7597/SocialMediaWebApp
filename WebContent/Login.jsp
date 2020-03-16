@@ -7,6 +7,9 @@
 <title>Insert title TEST</title>
 </head>
 <body>
+<div style="text-align:center">
+  <a href="Register.jsp">Register</a>
+</div>
 <form action="Login" method="post">
 	<label>Email :<input type="email" name="email"></label><br>
 	<label>Password :<input type="password" name="password"></label>

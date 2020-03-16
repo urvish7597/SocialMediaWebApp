@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-
-import com.java.db.MessageDBUtil;
 import com.java.db.PostDBUtil;
-import com.java.db.UserDBUtil;
 import com.java.model.Post;
 import com.java.model.User;
 
@@ -35,14 +32,12 @@ public class ViewSavedPost extends HttpServlet {
     }
     @Resource(name="jdbc/java_project")
     private DataSource dataSource;
-    private UserDBUtil userdb;
     private PostDBUtil postdb;
     @Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
 		try {
-			userdb = new UserDBUtil(dataSource);
 			postdb = new PostDBUtil(dataSource);
 		}
 		catch(Exception ex) {
@@ -58,6 +53,8 @@ public class ViewSavedPost extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		 HttpSession session=request.getSession();  
 			User logeduser =(User)(session.getAttribute("user"));
+			if(logeduser != null)
+			{
 			try {
 				List<Post> savedposts = postdb.readSavedPost(logeduser);	
 				RequestDispatcher dispatcher = request.getRequestDispatcher("viewSavedPosts.jsp");
@@ -66,6 +63,10 @@ public class ViewSavedPost extends HttpServlet {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			}
+			else {
+				response.sendRedirect("Login.jsp");
 			}
 	}
 

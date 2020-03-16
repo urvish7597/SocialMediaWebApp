@@ -2,8 +2,6 @@ package com.java.severlate;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import com.java.db.MessageDBUtil;
-import com.java.db.PostDBUtil;
 import com.java.db.UserDBUtil;
 import com.java.model.User;
 
@@ -57,9 +54,12 @@ public class Message extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		 try {
+		 
 			 HttpSession session=request.getSession();  
 			 User logeduser =(User)(session.getAttribute("user"));
+			 if(logeduser != null)
+			 {
+			 try {
 			User friend =userdb.findUser( new User(request.getParameter("friend"),""));
 			System.out.println(friend.getFirstName());
 			logeduser.setMessages(new ArrayList<com.java.model.Message>());
@@ -75,10 +75,15 @@ public class Message extends HttpServlet {
 			request.setAttribute("friend", friend.getEmail());
 			dispatcher.forward(request, response);
 			
-		} catch (Exception e) {
+		}
+			 catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+			 }
+			 else {
+					response.sendRedirect("Login.jsp");
+				}
 	}
 
 	/**

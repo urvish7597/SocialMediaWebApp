@@ -58,6 +58,8 @@ public class ViewProfile extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		User currentUser = (User) session.getAttribute("user");
+		if(currentUser != null) {
+			
 		User friend = new User(request.getParameter("friendemail"),"");
 		try {
 			List<Post> posts = postdb.readUserPost(friend);
@@ -79,7 +81,11 @@ public class ViewProfile extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		}
+		else {
+			response.sendRedirect("Login.jsp");
+		}
+	
 		
 	}
 

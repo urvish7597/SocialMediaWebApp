@@ -52,13 +52,23 @@ public class ViewFriendRequest extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		User currentUser = (User) session.getAttribute("user");
+		System.out.println("friend-request in");
+		if(currentUser != null)
+		{
 		List<User> friendRequest = userdb.getNewFriendRequest(currentUser);
 		int friendRequestCount = friendRequest.size();
-		
+		for(User u:friendRequest)
+		{
+		System.out.println(u.getFirstName()+"friend-request in");
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFriendRequest.jsp");
 		request.setAttribute("friendRequest", friendRequest);
 		request.setAttribute("friendRequestCount", friendRequestCount);
 		dispatcher.forward(request, response);
+		}
+		else {
+			response.sendRedirect("Login.jsp");
+		}
 	}
 
 	/**

@@ -183,7 +183,7 @@ public class UserDBUtil {
 		try {
 			conn = this.dataSource.getConnection();
 			
-			String sql = String.format("SELECT RelatingUserEmail as friend FROM friends where RelatedUserEmail=? and status=0 ");
+			String sql = String.format("SELECT RelatedUserEmail as friend FROM friends where RelatingUserEmail=? and status=0 ");
 			PreparedStatement pstmt = conn.prepareStatement(sql); 
 			
 			pstmt.setString(1, currentUser.getEmail());
@@ -217,8 +217,8 @@ public class UserDBUtil {
 			conn = this.dataSource.getConnection();
 			String sql = String.format("UPDATE friends SET status = 1 WHERE RelatedUserEmail=? and RelatingUserEmail=? ");
 			PreparedStatement pstmt = conn.prepareStatement(sql); 
-			pstmt.setString(1, Useremail);
-			pstmt.setString(2, Friendemail);
+			pstmt.setString(1, Friendemail);
+			pstmt.setString(2, Useremail);
 			//System.out.println(pstmt.toString());
 			pstmt.executeUpdate();
 			

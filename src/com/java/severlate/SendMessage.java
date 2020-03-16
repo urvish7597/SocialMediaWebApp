@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-
 import com.java.db.MessageDBUtil;
-import com.java.db.UserDBUtil;
 import com.java.model.User;
 
 /**
@@ -32,14 +30,12 @@ public class SendMessage extends HttpServlet {
     }
     @Resource(name="jdbc/java_project")
     private DataSource dataSource;
-    private UserDBUtil userdb;
     private MessageDBUtil messagedb;
     @Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
 		try {
-			userdb = new UserDBUtil(dataSource);
 			messagedb = new MessageDBUtil(dataSource);
 		}
 		catch(Exception ex) {

@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a style="float:right" href="Profile">Profile</a>
+<a style="float:left" href="Profile">Profile</a>
 				<div class="grid-container" style="width:100%;border:1px solid black; display: table-cell;">
 
   					<tag:forEach var="post" items="${posts}">
